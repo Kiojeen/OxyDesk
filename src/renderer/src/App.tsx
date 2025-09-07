@@ -1,49 +1,53 @@
-import { useTranslation } from 'react-i18next';
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Outlet } from 'react-router-dom'
 
-export default function App() {
-  const { t, i18n } = useTranslation();
+import { AppSidebar } from '~/components/app-sidebar'
+import { NavActions } from '~/components/nav-actions'
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbList,
+  BreadcrumbPage
+} from '~/components/ui/breadcrumb'
+import { Separator } from '~/components/ui/separator'
+import { SidebarInset, SidebarProvider, SidebarTrigger } from '~/components/ui/sidebar'
 
-  const toggleLanguage = () => {
-    const newLang = i18n.language === 'en' ? 'ar' : 'en';
-    i18n.changeLanguage(newLang);
-  };
+export default function OfficeForm() {
+  const { t, i18n } = useTranslation()
+  const [theme, setTheme] = useState<'light' | 'dark'>('light')
+
+  const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light')
+  const toggleLanguage = () => i18n.changeLanguage(i18n.language === 'ar' ? 'en' : 'ar')
 
   return (
-    <div
-      className="dark h-screen w-screen bg-gray-900 text-gray-100 flex items-center justify-center"
-      dir={i18n.language === 'ar' ? 'rtl' : 'ltr'} // Switch direction for Arabic
-    >
-      <div className="max-w-md w-full p-8 rounded-2xl bg-gray-800 shadow-lg text-center border border-gray-700 animate-fade-in">
-        
-        {/* Language Switch Button */}
-        <div className="flex justify-end mb-4">
-          <button
-            onClick={toggleLanguage}
-            className="px-3 py-1 text-sm rounded bg-gray-700 hover:bg-gray-600 transition-colors"
-          >
-            {t('languageToggle')}
-          </button>
-        </div>
-
-        {/* Title */}
-        <h1 className="text-3xl font-bold mb-3">{t('title')}</h1>
-        <p className="text-gray-400 mb-8">
-          {t('description')}
-        </p>
-
-        {/* Button */}
-        <button
-          className="w-full py-3 rounded-xl text-lg font-medium bg-indigo-600 hover:bg-indigo-500 text-white transition-colors duration-300"
-          onClick={() => alert(t('alert'))}
-        >
-          {t('getStarted')}
-        </button>
-
-        {/* Footer */}
-        <div className="mt-8 text-sm text-gray-500">
-          {t('footer')}
-        </div>
-      </div>
-    </div>
-  );
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset>
+        {/* <header className="flex h-14 shrink-0 items-center gap-2">
+          <div className="flex flex-1 items-center gap-2 px-3">
+            <SidebarTrigger />
+            <Separator orientation="vertical" className="mr-2 data-[orientation=vertical]:h-4" />
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbPage className="line-clamp-1">
+                    Project Management & Task Tracking
+                  </BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          </div>
+          <div className="ml-auto px-3">
+            <NavActions />
+          </div>
+        </header>
+        <div className="flex flex-1 flex-col gap-4 px-4 py-10">
+          <div className="bg-muted/50 mx-auto h-24 w-full max-w-3xl rounded-xl" />
+          <div className="bg-muted/50 mx-auto h-full w-full max-w-3xl rounded-xl" />
+        </div> */}
+        <Outlet />
+      </SidebarInset>
+    </SidebarProvider>
+  )
 }

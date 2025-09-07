@@ -1,8 +1,46 @@
 {
-  "title": "Welcome to Oxydesk",
-  "description": "A minimal desktop experience powered by React, Tailwind, and Electron.",
-  "getStarted": "Get Started",
-  "footer": "Made with ❤️ using Electron",
-  "alert": "Let's go! 🚀",
-  "languageToggle": "Switch to Arabic"
+  "pageTitle": "Add New Data",
+  "sections": {
+    "clientDetails": "Client Details",
+    "priceDetails": "Price Details",
+    "paymentStatus": "Payment Status",
+    "notes": "Notes"
+  },
+  "fields": {
+    "workType": "Type of Work",
+    "customerName": "Customer Name",
+    "phoneNumber": "Phone Number",
+    "workStatus": "Work Completion Status",
+    "workId": "Work ID",
+    "pricePerPage": "Price per Page/Service/Form",
+    "numberOfPages": "Number of Pages/Services/Forms",
+    "discount": "Discount",
+    "totalAccount": "Total Account",
+    "receivedAmount": "Received Amount",
+    "paymentStatus": "Payment Completion Status",
+    "remaining": "Remaining",
+    "notesPlaceholder": "Enter any additional notes here..."
+  },
+  "options": {
+    "duplication": "Duplication",
+    "translation": "Translation",
+    "printing": "Printing",
+    "scanning": "Scanning",
+    "completed": "Completed",
+    "inProgress": "In Progress",
+    "pending": "Pending"
+  },
+  "actions": {
+    "clearData": "Clear Data",
+    "saveData": "Save Data",
+    "currency": "D.A."
+  },
+  "sidebar": {
+    "add": "Add",
+    "clientsInformation": "Clients Information",
+    "accounts": "Accounts",
+    "officeExpenses": "Office Expenses",
+    "settings": "Settings",
+    "help": "Help"
+  }
 }

@@ -1,34 +1,13 @@
 # oxydesk
 
-An Electron application with React and TypeScript
-
-## Recommended IDE Setup
-
-- [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-
-## Project Setup
-
-### Install
-
-```bash
-$ pnpm install
-```
-
-### Development
-
-```bash
-$ pnpm dev
-```
-
-### Build
-
-```bash
-# For windows
-$ pnpm build:win
-
-# For macOS
-$ pnpm build:mac
-
-# For Linux
-$ pnpm build:linux
-```
+# Todo
+[x] Initialize an ```electron-vite`` project.
+[x] Add Tailwindcss.
+[x] Add internationalization support with i18next and languages (Arabic/English).
+[x] Create a sidebar (shadcn)
+[x] Add routing (react-router-dom)
+[ ] Scaffold pages for Accounts, Add, Clients Information, and Office Expenses (shadcn)
+[ ] Link to the database (supabase)
+[ ] Scaffold the schema
+.
+. 

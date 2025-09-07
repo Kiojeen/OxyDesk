@@ -7,11 +7,37 @@
     "src/preload/*.d.ts"
   ],
   "compilerOptions": {
+    /* Base Options: */
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "target": "es2022",
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "moduleDetection": "force",
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+
+    /* Strictness */
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "checkJs": true,
+
+    /* Bundled projects */
+    "lib": ["dom", "dom.iterable", "ES2022"],
+    "noEmit": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "preserve",
+    "incremental": true,
     "composite": true,
-    "jsx": "react-jsx",
+
+    /* Path Aliases */
     "baseUrl": ".",
     "paths": {
-      "@renderer/*": [
+      "": [
+        "src/renderer/src/*"
+      ],
+      "~/*": [
         "src/renderer/src/*"
       ]
     }
