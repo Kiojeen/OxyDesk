@@ -1,0 +1,8 @@
+{
+  "title": "Welcome to Oxydesk",
+  "description": "A minimal desktop experience powered by React, Tailwind, and Electron.",
+  "getStarted": "Get Started",
+  "footer": "Made with ❤️ using Electron",
+  "alert": "Let's go! 🚀",
+  "languageToggle": "Switch to Arabic"
+}
