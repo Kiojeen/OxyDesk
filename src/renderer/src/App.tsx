@@ -3,14 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { Outlet } from 'react-router-dom'
 
 import { AppSidebar } from '~/components/app-sidebar'
-import { NavActions } from '~/components/nav-actions'
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbList,
-  BreadcrumbPage
-} from '~/components/ui/breadcrumb'
-import { Separator } from '~/components/ui/separator'
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '~/components/ui/sidebar'
 
 export default function OfficeForm() {

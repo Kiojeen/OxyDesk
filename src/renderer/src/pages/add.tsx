@@ -14,7 +14,7 @@ import { Textarea } from '~/components/ui/textarea'
 import { Button } from '~/components/ui/button'
 
 export default function Add() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   const [formData, setFormData] = useState({
     workType: 'duplication',
@@ -78,6 +78,7 @@ export default function Add() {
               <div className="space-y-2">
                 <Label>{t('fields.workType')}</Label>
                 <Select
+                  dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}
                   value={formData.workType}
                   onValueChange={(value) => handleInputChange('workType', value)}
                 >
@@ -111,7 +112,7 @@ export default function Add() {
                   id="phoneNumber"
                   value={formData.phoneNumber}
                   onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
-                  placeholder="07801234567"
+                  placeholder="078xxxxxxxx"
                 />
               </div>
 
@@ -120,6 +121,7 @@ export default function Add() {
                 <Label>{t('fields.workStatus')}</Label>
                 <div className="flex gap-2">
                   <Select
+                    dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}
                     value={formData.workStatus}
                     onValueChange={(value) => handleInputChange('workStatus', value)}
                   >
