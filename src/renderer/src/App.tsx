@@ -1,35 +1,26 @@
-import Versions from './components/Versions'
-import electronLogo from './assets/electron.svg'
-
-function App(): React.JSX.Element {
-  const ipcHandle = (): void => window.electron.ipcRenderer.send('ping')
-
+export default function App() {
   return (
-    <>
-      <img alt="logo" className="logo" src={electronLogo} />
-      <div className="creator">Powered by electron-vite</div>
-      <div className="text">
-        Build an Electron app with <span className="react">React</span>
-        &nbsp;and <span className="ts">TypeScript</span>
-      </div>
-      <p className="tip">
-        Please try pressing <code>F12</code> to open the devTool
-      </p>
-      <div className="actions">
-        <div className="action">
-          <a href="https://electron-vite.org/" target="_blank" rel="noreferrer">
-            Documentation
-          </a>
-        </div>
-        <div className="action">
-          <a target="_blank" rel="noreferrer" onClick={ipcHandle}>
-            Send IPC
-          </a>
-        </div>
-      </div>
-      <Versions></Versions>
-    </>
-  )
-}
+    <div className="dark h-screen w-screen bg-gray-900 text-gray-100 flex items-center justify-center">
+      <div className="max-w-md w-full p-8 rounded-2xl bg-gray-800 shadow-lg text-center border border-gray-700 animate-fade-in">
+        {/* Title */}
+        <h1 className="text-3xl font-bold mb-3">Welcome to Oxydesk</h1>
+        <p className="text-gray-400 mb-8">
+          A minimal desktop experience powered by React, Tailwind, and Electron.
+        </p>
 
-export default App
+        {/* Button */}
+        <button
+          className="w-full py-3 rounded-xl text-lg font-medium bg-indigo-600 hover:bg-indigo-500 text-white transition-colors duration-300"
+          onClick={() => alert("Let's go! 🚀")}
+        >
+          Get Started
+        </button>
+
+        {/* Footer */}
+        <div className="mt-8 text-sm text-gray-500">
+          Made with ❤️ using <span className="text-indigo-400">Electron</span>
+        </div>
+      </div>
+    </div>
+  );
+}
