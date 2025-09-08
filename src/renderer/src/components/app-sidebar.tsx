@@ -96,7 +96,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   return (
     <Sidebar
-      className="border-r-0"
+      className="border-r-0 pt-12"
+      collapsible='icon'
       side={i18n.language === 'en' ? 'left' : 'right'}
       {...props}
     >

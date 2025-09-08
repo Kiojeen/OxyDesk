@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom'
 
 import { AppSidebar } from '~/components/app-sidebar'
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '~/components/ui/sidebar'
+import { TitleBar } from './components/title-bar'
 
 export default function OfficeForm() {
   const { t, i18n } = useTranslation()
@@ -11,12 +12,30 @@ export default function OfficeForm() {
 
   const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light')
   const toggleLanguage = () => i18n.changeLanguage(i18n.language === 'ar' ? 'en' : 'ar')
-
   return (
-    <SidebarProvider>
-      <AppSidebar />
-      <SidebarInset>
-        {/* <header className="flex h-14 shrink-0 items-center gap-2">
+    <div className="min-h-screen bg-background pt-12">
+      <TitleBar
+        title="OxyDesk"
+        subtitle="Point of sells"
+        className="fixed top-0 left-0 w-full z-50"
+      />
+      <SidebarProvider>
+        <AppSidebar />
+        <SidebarInset>
+          <div className="p-8">
+            <Outlet />
+          </div>
+        </SidebarInset>
+      </SidebarProvider>
+    </div>
+  )
+  return (
+    <div>
+      <TitleBar title="OxyDesk" subtitle="Point of sells" />
+      <SidebarProvider>
+        <AppSidebar />
+        <SidebarInset>
+          {/* <header className="flex h-14 shrink-0 items-center gap-2">
           <div className="flex flex-1 items-center gap-2 px-3">
             <SidebarTrigger />
             <Separator orientation="vertical" className="mr-2 data-[orientation=vertical]:h-4" />
@@ -38,8 +57,9 @@ export default function OfficeForm() {
           <div className="bg-muted/50 mx-auto h-24 w-full max-w-3xl rounded-xl" />
           <div className="bg-muted/50 mx-auto h-full w-full max-w-3xl rounded-xl" />
         </div> */}
-        <Outlet />
-      </SidebarInset>
-    </SidebarProvider>
+          <Outlet />
+        </SidebarInset>
+      </SidebarProvider>
+    </div>
   )
 }
