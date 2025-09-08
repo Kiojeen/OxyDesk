@@ -38,11 +38,11 @@ export function TitleBar({ title = 'My App', subtitle, className }: TitleBarProp
     }
   }
   if (!isElectron) return null
-  
+
   return (
     <div
       className={cn(
-        'flex items-center justify-between h-12 bg-gradient-to-b from-card to-background border-b border-border px-4 select-none shadow-sm',
+        'flex items-center justify-between h-12 bg-gradient-to-b from-card to-background border-b border-border px-4 select-none shadow-sm [-webkit-app-region:drag]',
         className
       )}
     >
@@ -58,7 +58,7 @@ export function TitleBar({ title = 'My App', subtitle, className }: TitleBarProp
         </div>
       </div>
 
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-1 [-webkit-app-region:no-drag]">
         {/* Action buttons */}
         <button className="w-8 h-8 rounded-md hover:bg-muted transition-colors duration-200 flex items-center justify-center group">
           <Search className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors" />
