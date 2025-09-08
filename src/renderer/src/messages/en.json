@@ -22,13 +22,16 @@
     "notesPlaceholder": "Enter any additional notes here..."
   },
   "options": {
-    "duplication": "Duplication",
+    "copying": "Copying",
     "translation": "Translation",
     "printing": "Printing",
     "scanning": "Scanning",
     "completed": "Completed",
     "inProgress": "In Progress",
-    "pending": "Pending"
+    "pending": "Pending",
+    "paid": "Paid",
+    "unpaid": "Unpaid",
+    "overdue": "Overdue"
   },
   "actions": {
     "clearData": "Clear Data",

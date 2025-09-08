@@ -22,13 +22,16 @@
     "notesPlaceholder": "أدخل أي ملاحظات إضافية هنا..."
   },
   "options": {
-    "duplication": "استنساخ",
+    "copying": "استنساخ",
     "translation": "ترجمة",
     "printing": "طباعة",
     "scanning": "مسح ضوئي",
     "completed": "مكتمل",
     "inProgress": "قيد التنفيذ",
-    "pending": "معلق"
+    "pending": "معلق",
+    "paid": "مدفوع",
+    "unpaid": "غير مدفوع",
+    "overdue": "متأخر"
   },
   "actions": {
     "clearData": "إخلاء البيانات",
