@@ -1,65 +1,42 @@
-import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import SideBar from './components/sidebar'
 import { Outlet } from 'react-router-dom'
+import { FilePlus, Users, Wallet, CreditCard } from 'lucide-react'
 
-import { AppSidebar } from '~/components/app-sidebar'
-import { SidebarInset, SidebarProvider, SidebarTrigger } from '~/components/ui/sidebar'
-import { TitleBar } from './components/title-bar'
+const tabs = [
+  {
+    id: 'tab_add_record',
+    text: 'اضافة تقرير',
+    to: '/',
+    icon: <FilePlus />
+  },
+  {
+    id: 'tab_clients_info',
+    text: 'معلومات الزبائن',
+    to: '/clients-information',
+    icon: <Users />
+  },
+  {
+    id: 'tab_accounting',
+    text: 'الحسابات',
+    to: '/accounts',
+    icon: <Wallet />
+  },
+  {
+    id: 'tab_spendings',
+    text: 'صرفيات المكتب',
+    to: '/office-expenses',
+    icon: <CreditCard />
+  }
+]
 
-export default function OfficeForm() {
-  const { t, i18n } = useTranslation()
-  const [theme, setTheme] = useState<'light' | 'dark'>('light')
-
-  const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light')
-  const toggleLanguage = () => i18n.changeLanguage(i18n.language === 'ar' ? 'en' : 'ar')
+export default function App() {
   return (
-    <div className="min-h-screen bg-background pt-12">
-      <TitleBar
-        title="OxyDesk"
-        subtitle="Point of sells"
-        className="fixed top-0 left-0 w-full z-50"
-      />
-      <SidebarProvider>
-        <AppSidebar />
-        <SidebarInset>
-          <div className="p-8">
-            <Outlet />
-          </div>
-        </SidebarInset>
-      </SidebarProvider>
-    </div>
-  )
-  return (
-    <div>
-      <TitleBar title="OxyDesk" subtitle="Point of sells" />
-      <SidebarProvider>
-        <AppSidebar />
-        <SidebarInset>
-          {/* <header className="flex h-14 shrink-0 items-center gap-2">
-          <div className="flex flex-1 items-center gap-2 px-3">
-            <SidebarTrigger />
-            <Separator orientation="vertical" className="mr-2 data-[orientation=vertical]:h-4" />
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbPage className="line-clamp-1">
-                    Project Management & Task Tracking
-                  </BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
-          </div>
-          <div className="ml-auto px-3">
-            <NavActions />
-          </div>
-        </header>
-        <div className="flex flex-1 flex-col gap-4 px-4 py-10">
-          <div className="bg-muted/50 mx-auto h-24 w-full max-w-3xl rounded-xl" />
-          <div className="bg-muted/50 mx-auto h-full w-full max-w-3xl rounded-xl" />
-        </div> */}
-          <Outlet />
-        </SidebarInset>
-      </SidebarProvider>
+    <div className="flex h-screen" dir="rtl" lang="ar">
+      <SideBar buttons={tabs} />
+      {/* Main content */}
+      <div className="bg-gray-50 flex-1 p-6 text-gray-900 overflow-y-auto">
+        <Outlet />
+      </div>
     </div>
   )
 }
