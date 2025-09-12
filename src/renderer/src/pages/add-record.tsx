@@ -10,6 +10,35 @@ import {
   CheckCircle,
   AlertCircle
 } from 'lucide-react'
+import { z } from 'zod'
+
+// Zod schema for form validation
+const formSchema = z.object({
+  clientName: z.string().min(1, 'اسم الزبون مطلوب'),
+  workType: z.string().min(1, 'نوع العمل مطلوب'),
+  workDetails: z.string().optional(),
+  pricePerUnit: z.string().refine(
+    (val) => {
+      const num = parseFloat(val)
+      return !isNaN(num) && num > 0
+    },
+    { message: 'سعر الوحدة يجب أن يكون أكبر من صفر' }
+  ),
+  quantity: z.string().refine(
+    (val) => {
+      const num = parseFloat(val)
+      return !isNaN(num) && num > 0
+    },
+    { message: 'العدد يجب أن يكون أكبر من صفر' }
+  ),
+  discount: z.string().optional(),
+  total: z.string(),
+  paid: z.string().optional(),
+  remaining: z.string(),
+  notes: z.string().optional()
+})
+
+type FormData = z.infer<typeof formSchema>
 
 interface FormSectionProps {
   title: string
@@ -67,7 +96,7 @@ export const FormField = ({ label, children, className, required, error }: FormF
 }
 
 export default function AddRecord() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     clientName: '',
     workType: '',
     workDetails: '',
@@ -80,64 +109,41 @@ export default function AddRecord() {
     notes: ''
   })
 
-  const [errors, setErrors] = useState({
-    clientName: '',
-    workType: '',
-    workDetails: '',
-    pricePerUnit: '0',
-    quantity: '0',
-    discount: '0',
-    total: '0',
-    paid: '0',
-    remaining: '0',
-    notes: ''
-  })
+  const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({})
   const [showSuccess, setShowSuccess] = useState(false)
 
-  // Validate required fields
+  // Validate form using Zod
   const validateForm = () => {
-    const newErrors = {
-      clientName: '',
-      workType: '',
-      workDetails: '',
-      pricePerUnit: '0',
-      quantity: '0',
-      discount: '0',
-      total: '0',
-      paid: '0',
-      remaining: '0',
-      notes: ''
+    try {
+      formSchema.parse(formData)
+      setErrors({})
+      return true
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const newErrors: Partial<Record<keyof FormData, string>> = {}
+        error.errors.forEach((err) => {
+          if (err.path[0]) {
+            newErrors[err.path[0] as keyof FormData] = err.message
+          }
+        })
+        setErrors(newErrors)
+      }
+      return false
     }
-
-    if (!formData.clientName.trim()) {
-      newErrors.clientName = 'اسم الزبون مطلوب'
-    }
-    if (!formData.workType.trim()) {
-      newErrors.workType = 'نوع العمل مطلوب'
-    }
-    if (parseFloat(formData.pricePerUnit) <= 0) {
-      newErrors.pricePerUnit = 'سعر الوحدة يجب أن يكون أكبر من صفر'
-    }
-    if (parseFloat(formData.quantity) <= 0) {
-      newErrors.quantity = 'العدد يجب أن يكون أكبر من صفر'
-    }
-
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
   }
 
   // Calculate totals with improved precision
   useEffect(() => {
     const price = Math.max(0, parseFloat(formData.pricePerUnit) || 0)
     const qty = Math.max(0, parseFloat(formData.quantity) || 0)
-    const disc = Math.max(0, parseFloat(formData.discount) || 0)
-    const paidAmount = Math.max(0, parseFloat(formData.paid) || 0)
+    const disc = Math.max(0, parseFloat(formData.discount || '0') || 0)
+    const paidAmount = Math.max(0, parseFloat(formData.paid || '0') || 0)
 
     const calculatedTotal = Math.max(0, price * qty - disc)
     const calculatedRemaining = Math.max(0, calculatedTotal - paidAmount)
 
     // Format numbers more elegantly
-    const formatNumber = (num) => {
+    const formatNumber = (num: number) => {
       if (num === Math.floor(num)) {
         return num.toString()
       }
@@ -173,41 +179,30 @@ export default function AddRecord() {
       remaining: '0',
       notes: ''
     })
-    setErrors({
-      clientName: '',
-      workType: '',
-      workDetails: '',
-      pricePerUnit: '0',
-      quantity: '0',
-      discount: '0',
-      total: '0',
-      paid: '0',
-      remaining: '0',
-      notes: ''
-    })
+    setErrors({})
     setShowSuccess(false)
   }
 
   // Handle number input changes with validation
-  const handleNumberChange = (field, value) => {
+  const handleNumberChange = (field: keyof FormData, value: string) => {
     const numValue = value === '' ? '0' : value
     if (numValue === '' || /^\d*\.?\d*$/.test(numValue)) {
       setFormData({ ...formData, [field]: numValue })
 
       // Clear error when user starts typing
       if (errors[field]) {
-        setErrors((prev) => ({ ...prev, [field]: '' }))
+        setErrors((prev) => ({ ...prev, [field]: undefined }))
       }
     }
   }
 
   // Handle text input changes
-  const handleTextChange = (field, value) => {
+  const handleTextChange = (field: keyof FormData, value: string) => {
     setFormData({ ...formData, [field]: value })
 
     // Clear error when user starts typing
     if (errors[field]) {
-      setErrors((prev) => ({ ...prev, [field]: '' }))
+      setErrors((prev) => ({ ...prev, [field]: undefined }))
     }
   }
 
@@ -215,7 +210,7 @@ export default function AddRecord() {
     const remaining = parseFloat(formData.remaining) || 0
     if (remaining === 0 && parseFloat(formData.total) > 0) {
       return { text: 'مدفوع بالكامل', color: 'text-green-600', bg: 'bg-green-100' }
-    } else if (remaining > 0 && parseFloat(formData.paid) > 0) {
+    } else if (remaining > 0 && parseFloat(formData.paid || '0') > 0) {
       return { text: 'دفع جزئي', color: 'text-yellow-600', bg: 'bg-yellow-100' }
     } else if (remaining > 0) {
       return { text: 'غير مدفوع', color: 'text-red-600', bg: 'bg-red-100' }
